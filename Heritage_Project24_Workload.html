@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Project 24 — Heritage AI: Team Workload Division</title>
+<style>
+:root{--navy:#0d1b2a;--steel:#415a77;--m1d:#6a0572;--m1m:#9b2dca;--m1l:#f3e5f5;--m2d:#0d47a1;--m2m:#1976d2;--m2l:#e3f2fd;--m3d:#1b5e20;--m3m:#388e3c;--m3l:#e8f5e9;--gold:#f9a825;--border:#c5cae9;--gray:#f5f7fa;--text:#1a1a2e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f8;color:var(--text);font-size:14px;line-height:1.7}
+@media print{body{background:white;font-size:11px}.no-print{display:none}.page-break{page-break-before:always}}
+.cover{background:linear-gradient(160deg,#0d1b2a 0%,#1b263b 50%,#415a77 100%);color:white;padding:44px 36px 36px;text-align:center}
+.proj-badge{display:inline-block;background:var(--gold);color:#1a1a2e;font-weight:800;font-size:.82em;padding:5px 20px;border-radius:20px;letter-spacing:2px;margin-bottom:18px}
+.cover h1{font-size:2.2em;font-weight:800;line-height:1.2}.cover h1 span{color:#90caf9}
+.cover .sub{font-size:1em;opacity:.8;margin:10px 0 26px}
+.team-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin:18px 0}
+.tp{padding:13px 8px;text-align:center}.tp h3{font-size:.95em;margin-bottom:3px}.tp p{font-size:.78em;color:#ffe082}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;background:rgba(255,255,255,.07);border-radius:10px;padding:14px}
+.meta div{font-size:.88em}.meta strong{color:var(--gold)}
+.cbar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin:14px 0}
+.cc{padding:12px;text-align:center}.cc .pct{font-size:1.7em;font-weight:800;color:#ffe082}
+.cc .cn{font-size:.88em;font-weight:600}.cc .cr{font-size:.72em;color:#b0bec5;margin-top:3px}
+.wrap{max-width:1060px;margin:0 auto;padding:20px 14px 50px}
+.sh{border-radius:10px;padding:16px 20px;margin:26px 0 14px;color:white}
+.sh h2{font-size:1.2em;font-weight:700}.sh p{font-size:.82em;opacity:.8;margin-top:3px}
+.mc{border-radius:12px;overflow:hidden;box-shadow:0 5px 24px rgba(0,0,0,.11);margin:0 0 26px}
+.mb{padding:18px 22px;color:white;text-align:center}
+.mb .mn{font-size:.75em;opacity:.65;letter-spacing:2px;text-transform:uppercase}
+.mb h2{font-size:1.8em;font-weight:800;margin:3px 0}
+.mb .mr{font-size:.95em;color:#ffe082;font-weight:600}
+.mb .mp{font-size:.85em;color:#b3e5fc;margin-top:3px}
+.mm{display:flex;align-items:flex-start}
+.md{flex:1;padding:13px 16px}
+.md .lbl{font-size:.72em;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
+.md p{font-size:.86em}
+.ms{padding:12px 14px;display:flex;flex-wrap:wrap;gap:5px;align-content:flex-start;min-width:260px}
+.st{padding:4px 11px;border-radius:13px;font-size:.76em;font-weight:700;color:white;display:inline-block}
+.mst{padding:7px 16px;color:white;font-size:.79em;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.rt{width:100%;border-collapse:collapse}
+.rt tr:nth-child(odd) td{background:#fafafa}
+.rt td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top;font-size:.86em}
+.rt td:first-child{font-weight:700;min-width:150px;max-width:175px;border-right:2px solid var(--border)}
+.bs{display:grid;grid-template-columns:1fr 1fr}
+.bc{padding:14px 16px}
+.bc h4{font-size:.86em;font-weight:700;margin-bottom:9px}
+.bc ul{list-style:none;padding:0}
+.bc li{font-size:.83em;margin-bottom:4px;padding-left:15px;position:relative}
+.bc li::before{content:'✓';position:absolute;left:0;font-weight:700}
+.bc li.ar::before{content:'▶';font-size:.68em;top:4px}
+.tls{display:grid}
+.tc_{padding:7px 5px;text-align:center;color:white}
+.tc_ .tp_{font-size:.73em;font-weight:700}
+.tc_ .td_{font-size:.68em;opacity:.8;margin-top:1px}
+.dt{width:100%;border-collapse:collapse;margin:10px 0;font-size:.86em}
+.dt th{background:var(--navy);color:white;padding:9px 11px;text-align:left;font-weight:600}
+.dt td{padding:8px 11px;border-bottom:1px solid var(--border);vertical-align:top}
+.dt tr:nth-child(even) td{background:var(--gray)}
+.close{background:var(--navy);color:white;border-radius:12px;padding:20px 26px;text-align:center;margin:22px 0}
+.close p{font-size:.92em;line-height:1.8}
+.pbtn{position:fixed;bottom:22px;right:22px;background:var(--navy);color:white;border:none;padding:11px 20px;border-radius:22px;font-size:.88em;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.22);z-index:200}
+@media(max-width:700px){.team-strip,.cbar,.bs,.mm{grid-template-columns:1fr}.meta{grid-template-columns:1fr}.ms{min-width:unset}.cover h1{font-size:1.5em}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="proj-badge">PROJECT 24</div>
+  <h1>AI-Driven Smart Heritage Site<br><span>Preservation &amp; Monitoring System</span></h1>
+  <p class="sub">Intelligent Cultural Heritage Intelligence Platform Using AI and IoT for Conservation and Risk Detection</p>
+  <div class="team-strip">
+    <div class="tp" style="background:var(--m1d)"><h3>Anishka Jain</h3><p>IoT &amp; AI Lead</p></div>
+    <div class="tp" style="background:var(--m2d)"><h3>Bhoomika Agarwal</h3><p>Cloud &amp; Backend Lead</p></div>
+    <div class="tp" style="background:var(--m3d)"><h3>Shraddha Singh</h3><p>Dashboard &amp; Docs Lead</p></div>
+  </div>
+  <div class="meta">
+    <div><strong>Industry:</strong> Archaeological Orgs, Govt Heritage Bodies, Cultural Preservation Firms</div>
+    <div><strong>Category:</strong> AI + IoT + Cloud Platform</div>
+    <div><strong>Team Size:</strong> 3 Members (Equal Contribution)</div>
+    <div><strong>Duration:</strong> 4 Months | 16 Weeks</div>
+  </div>
+  <div class="cbar">
+    <div class="cc" style="background:var(--m1d)"><div class="pct">33.3%</div><div class="cn">Anishka Jain</div><div class="cr">IoT System + AI Engine</div></div>
+    <div class="cc" style="background:var(--m2d)"><div class="pct">33.3%</div><div class="cn">Bhoomika Agarwal</div><div class="cr">Cloud Architecture + Backend API</div></div>
+    <div class="cc" style="background:var(--m3d)"><div class="pct">33.4%</div><div class="cn">Shraddha Singh</div><div class="cr">Dashboard + Docs + QA</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- OVERVIEW -->
+<div class="sh" style="background:linear-gradient(90deg,var(--navy),var(--steel))">
+  <h2>PROJECT OVERVIEW &amp; COMPONENT MAPPING</h2>
+  <p>System architecture breakdown and responsibility assignment for all three modules</p>
+</div>
+<p style="margin-bottom:12px">This document defines the complete workload division for Project 24. Each member owns one primary module. All three modules are tightly integrated and interdependent — the system cannot function without all three.</p>
+<table class="dt">
+  <tr><th>System Component</th><th>Description</th><th>Primary Lead</th></tr>
+  <tr><td><strong>IoT Sensing Layer</strong></td><td>Environmental &amp; structural sensor network, edge data acquisition and preprocessing</td><td style="color:var(--m1d);font-weight:700">Anishka Jain</td></tr>
+  <tr><td><strong>AI Risk Engine</strong></td><td>ML models for deterioration prediction &amp; vandalism anomaly detection</td><td style="color:var(--m1d);font-weight:700">Anishka Jain</td></tr>
+  <tr><td><strong>Cloud Infrastructure</strong></td><td>AWS/Azure deployment, databases, IoT data ingestion pipeline, security</td><td style="color:var(--m2d);font-weight:700">Bhoomika Agarwal</td></tr>
+  <tr><td><strong>Alert &amp; Reporting System</strong></td><td>Real-time multi-channel alerts (email/SMS/push) and automated PDF reports</td><td style="color:var(--m2d);font-weight:700">Bhoomika Agarwal</td></tr>
+  <tr><td><strong>Conservation Dashboard</strong></td><td>Interactive React.js UI, data visualization, GIS mapping, Site Health Index</td><td style="color:var(--m3d);font-weight:700">Shraddha Singh</td></tr>
+  <tr><td><strong>Documentation &amp; QA</strong></td><td>System docs, test plans, user manual, cultural preservation strategy document</td><td style="color:var(--m3d);font-weight:700">Shraddha Singh</td></tr>
+</table>
+
+<!-- MEMBER 1 -->
+<div class="sh page-break" style="background:linear-gradient(90deg,var(--m1d),var(--m1m))">
+  <h2>MEMBER 1 — ANISHKA JAIN</h2>
+  <p>IoT System Architecture &amp; AI/ML Risk Assessment Engine | Contribution: 33.3%</p>
+</div>
+<div class="mc">
+  <div class="mb" style="background:var(--m1d)">
+    <div class="mn">Member 01</div>
+    <h2>Anishka Jain</h2>
+    <div class="mr">IoT System Architect &amp; AI/ML Engineer</div>
+    <div class="mp">Project Contribution: 33.3% &nbsp;|&nbsp; Module: IoT Sensing Layer + AI Risk Engine</div>
+  </div>
+  <div class="mm" style="background:var(--m1l)">
+    <div class="md">
+      <div class="lbl" style="color:var(--m1d)">Domain Focus</div>
+      <p>IoT Hardware Integration, AI/ML Model Development, Sensor Data Engineering, Edge Computing, Time-Series Analysis</p>
+    </div>
+    <div class="ms">
+      <span class="st" style="background:var(--m1m)">Python</span>
+      <span class="st" style="background:var(--m1m)">TensorFlow/Keras</span>
+      <span class="st" style="background:var(--m1m)">MQTT/CoAP</span>
+      <span class="st" style="background:var(--m1m)">Raspberry Pi</span>
+      <span class="st" style="background:var(--m1m)">Scikit-learn</span>
+      <span class="st" style="background:var(--m1m)">XGBoost</span>
+      <span class="st" style="background:var(--m1m)">Edge AI</span>
+      <span class="st" style="background:var(--m1m)">LoRaWAN</span>
+    </div>
+  </div>
+  <div class="mst" style="background:var(--m1m)">CORE RESPONSIBILITIES</div>
+  <table class="rt">
+    <tr><td style="color:var(--m1d)">IoT Architecture Design</td><td>Design complete sensor network topology for heritage site monitoring. Select sensors: DHT22 (temperature/humidity), MQ-series (air quality), accelerometers (vibration), UV sensors, crack displacement sensors. Define MQTT/CoAP protocols and edge preprocessing pipelines for remote sites.</td></tr>
+    <tr><td style="color:var(--m1d)">Sensor Hardware Setup</td><td>Configure Raspberry Pi / Arduino IoT nodes. Program sensor firmware in MicroPython/C++. Implement edge-level noise filtering, data normalization, and local buffering. Set up LoRaWAN/Wi-Fi wireless communication for heritage sites with limited connectivity.</td></tr>
+    <tr><td style="color:var(--m1d)">Data Preprocessing Pipeline</td><td>Build data ingestion pipelines from IoT nodes to cloud. Handle missing sensor values, outliers, and time-series alignment. Create feature engineering scripts extracting deterioration-relevant features: temperature cycling stress, humidity gradients, vibration frequency signatures.</td></tr>
+    <tr><td style="color:var(--m1d)">AI Deterioration Model</td><td>Develop and train supervised ML models — Random Forest, LSTM (time-series), XGBoost — to predict stone/wood/metal deterioration rates from environmental exposure history. Use historical conservation records + synthetic simulation data. Target: AUC greater than 0.88 on validation set.</td></tr>
+    <tr><td style="color:var(--m1d)">Vandalism Risk Detection</td><td>Build anomaly detection module using Isolation Forest to flag unusual activity patterns: unauthorized access, sudden structural shocks, night-time vibration anomalies. Integrate detection output with Bhoomika's alert pipeline via REST API calls on risk threshold breach.</td></tr>
+    <tr><td style="color:var(--m1d)">Model Evaluation</td><td>Conduct cross-validation, confusion matrix analysis, and feature importance ranking. Generate Risk Prediction Performance Report with AUC, precision, recall, F1-score. Document hyperparameter tuning process. This is a required project expected outcome.</td></tr>
+    <tr><td style="color:var(--m1d)">Cloud Integration</td><td>Collaborate with Bhoomika to ensure IoT streams are correctly ingested via AWS IoT Core. Test end-to-end flow: sensor node to cloud to AI prediction output. Expose trained model as REST API endpoint consumed by both backend (for alerts) and dashboard (for visualization).</td></tr>
+  </table>
+  <div class="bs" style="background:var(--m1l)">
+    <div class="bc" style="border-right:1px solid var(--border)">
+      <h4 style="color:var(--m1d)">Key Deliverables</h4>
+      <ul>
+        <li>IoT Sensor Network Architecture Diagram</li>
+        <li>Configured sensor nodes with firmware code</li>
+        <li>Data preprocessing &amp; feature engineering scripts</li>
+        <li>Trained AI deterioration prediction model</li>
+        <li>Vandalism anomaly detection module</li>
+        <li>Risk Prediction Performance Report</li>
+        <li>Model training notebooks &amp; evaluation metrics</li>
+        <li>REST API endpoint for AI predictions</li>
+      </ul>
+    </div>
+    <div class="bc">
+      <h4 style="color:var(--m1d)">Technologies &amp; Tools</h4>
+      <ul>
+        <li class="ar">Python 3.x — primary language</li>
+        <li class="ar">TensorFlow / Keras — LSTM deep learning</li>
+        <li class="ar">Scikit-learn — Random Forest, Isolation Forest</li>
+        <li class="ar">XGBoost — gradient boosting</li>
+        <li class="ar">MQTT / CoAP — IoT communication</li>
+        <li class="ar">Raspberry Pi 4 / Arduino — edge hardware</li>
+        <li class="ar">LoRaWAN — long-range wireless</li>
+        <li class="ar">AWS IoT Core — cloud IoT gateway</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tls" style="grid-template-columns:repeat(5,1fr)">
+    <div class="tc_" style="background:var(--m1d)"><div class="tp_">Phase 1: Sensor Setup</div><div class="td_">Weeks 1–3</div></div>
+    <div class="tc_" style="background:var(--steel)"><div class="tp_">Phase 2: Data Pipeline</div><div class="td_">Weeks 4–6</div></div>
+    <div class="tc_" style="background:var(--m1d)"><div class="tp_">Phase 3: Model Training</div><div class="td_">Weeks 7–11</div></div>
+    <div class="tc_" style="background:var(--steel)"><div class="tp_">Phase 4: Integration</div><div class="td_">Weeks 12–14</div></div>
+    <div class="tc_" style="background:var(--m1d)"><div class="tp_">Phase 5: Evaluation</div><div class="td_">Weeks 15–16</div></div>
+  </div>
+</div>
+
+<!-- MEMBER 2 -->
+<div class="sh page-break" style="background:linear-gradient(90deg,var(--m2d),var(--m2m))">
+  <h2>MEMBER 2 — BHOOMIKA AGARWAL</h2>
+  <p>Cloud Infrastructure, Backend REST API &amp; Real-Time Alert System | Contribution: 33.3%</p>
+</div>
+<div class="mc">
+  <div class="mb" style="background:var(--m2d)">
+    <div class="mn">Member 02</div>
+    <h2>Bhoomika Agarwal</h2>
+    <div class="mr">Cloud Architect &amp; Backend API Developer</div>
+    <div class="mp">Project Contribution: 33.3% &nbsp;|&nbsp; Module: Cloud + Backend API + Alert System</div>
+  </div>
+  <div class="mm" style="background:var(--m2l)">
+    <div class="md">
+      <div class="lbl" style="color:var(--m2d)">Domain Focus</div>
+      <p>Cloud Infrastructure Design, RESTful API Development, Database Engineering, Real-time Event Systems, Cybersecurity, CI/CD Automation</p>
+    </div>
+    <div class="ms">
+      <span class="st" style="background:var(--m2m)">AWS/Azure</span>
+      <span class="st" style="background:var(--m2m)">FastAPI/Node.js</span>
+      <span class="st" style="background:var(--m2m)">PostgreSQL</span>
+      <span class="st" style="background:var(--m2m)">Docker/K8s</span>
+      <span class="st" style="background:var(--m2m)">Apache Kafka</span>
+      <span class="st" style="background:var(--m2m)">CI/CD</span>
+      <span class="st" style="background:var(--m2m)">JWT/RBAC</span>
+      <span class="st" style="background:var(--m2m)">Redis</span>
+    </div>
+  </div>
+  <div class="mst" style="background:var(--m2m)">CORE RESPONSIBILITIES</div>
+  <table class="rt">
+    <tr><td style="color:var(--m2d)">Cloud Architecture Design</td><td>Design and deploy secure, scalable cloud architecture on AWS. Set up VPCs, IAM roles, auto-scaling groups, and load balancers. Services include: AWS IoT Core (MQTT ingestion), RDS PostgreSQL (structured data), TimescaleDB (time-series sensor data), S3 (raw sensor dumps), Lambda (serverless event triggers).</td></tr>
+    <tr><td style="color:var(--m2d)">Database Schema &amp; Management</td><td>Design relational database schema for sensor readings, site metadata, AI predictions, alert logs, and user accounts. Implement TimescaleDB for efficient time-series storage of high-frequency sensor data. Set up automated backups, read replicas, data retention policies, and partitioning for performance.</td></tr>
+    <tr><td style="color:var(--m2d)">RESTful API Development</td><td>Build comprehensive FastAPI / Node.js REST API with endpoints for: sensor data ingestion, AI model result retrieval, alert management, user authentication, site management, and automated report generation. Full OpenAPI/Swagger documentation. Versioned endpoints for future extensibility.</td></tr>
+    <tr><td style="color:var(--m2d)">Real-time Alert System</td><td>Build event-driven alert pipeline using Apache Kafka / AWS SNS+SQS. When Anishka's AI model flags a risk, trigger multi-channel notifications: email (AWS SES), SMS (Twilio), push notifications, and in-app alerts. Implement four severity levels: Low, Medium, High, Critical with escalation logic.</td></tr>
+    <tr><td style="color:var(--m2d)">Security &amp; Authentication</td><td>Implement JWT-based authentication and Role-Based Access Control (RBAC) for conservation authorities, government users, and field operators. Set up HTTPS/TLS encryption, API rate limiting, SQL injection prevention, input validation, and audit logging. Ensure full OWASP Top 10 compliance.</td></tr>
+    <tr><td style="color:var(--m2d)">Data Pipeline Orchestration</td><td>Set up Apache Airflow / AWS Step Functions to orchestrate daily batch jobs: model retraining triggers, automated report generation, data archival tasks, and database maintenance. Monitor pipeline health with CloudWatch. Alert on pipeline failures within 5 minutes.</td></tr>
+    <tr><td style="color:var(--m2d)">Integration &amp; Load Testing</td><td>Integrate Anishka's AI prediction API results into the backend pipeline. Provide stable, documented API endpoints to Shraddha for dashboard consumption. Write integration and load tests using Locust — ensuring system handles 500+ concurrent IoT device connections without performance degradation.</td></tr>
+  </table>
+  <div class="bs" style="background:var(--m2l)">
+    <div class="bc" style="border-right:1px solid var(--border)">
+      <h4 style="color:var(--m2d)">Key Deliverables</h4>
+      <ul>
+        <li>Cloud architecture diagram (AWS/Azure)</li>
+        <li>Database schema — ER diagram + migrations</li>
+        <li>REST API with full Swagger documentation</li>
+        <li>Real-time multi-channel alert system</li>
+        <li>JWT authentication + RBAC system</li>
+        <li>CI/CD pipeline (GitHub Actions)</li>
+        <li>Load testing report (500+ connections)</li>
+        <li>Security audit &amp; compliance report</li>
+      </ul>
+    </div>
+    <div class="bc">
+      <h4 style="color:var(--m2d)">Technologies &amp; Tools</h4>
+      <ul>
+        <li class="ar">AWS — IoT Core, RDS, S3, Lambda, SNS</li>
+        <li class="ar">FastAPI (Python) / Node.js — backend</li>
+        <li class="ar">PostgreSQL + TimescaleDB — database</li>
+        <li class="ar">Apache Kafka — event streaming</li>
+        <li class="ar">Docker + Kubernetes (EKS)</li>
+        <li class="ar">GitHub Actions — CI/CD automation</li>
+        <li class="ar">Redis — caching layer</li>
+        <li class="ar">Locust — load &amp; stress testing</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tls" style="grid-template-columns:repeat(5,1fr)">
+    <div class="tc_" style="background:var(--m2d)"><div class="tp_">Phase 1: Architecture</div><div class="td_">Weeks 1–3</div></div>
+    <div class="tc_" style="background:var(--steel)"><div class="tp_">Phase 2: DB &amp; API</div><div class="td_">Weeks 4–7</div></div>
+    <div class="tc_" style="background:var(--m2d)"><div class="tp_">Phase 3: Alert System</div><div class="td_">Weeks 8–10</div></div>
+    <div class="tc_" style="background:var(--steel)"><div class="tp_">Phase 4: Security/CI</div><div class="td_">Weeks 11–13</div></div>
+    <div class="tc_" style="background:var(--m2d)"><div class="tp_">Phase 5: Testing</div><div class="td_">Weeks 14–16</div></div>
+  </div>
+</div>
+
+<!-- MEMBER 3 -->
+<div class="sh page-break" style="background:linear-gradient(90deg,var(--m3d),var(--m3m))">
+  <h2>MEMBER 3 — SHRADDHA SINGH</h2>
+  <p>Conservation Dashboard, Technical Documentation &amp; QA Testing | Contribution: 33.4%</p>
+</div>
+<div class="mc">
+  <div class="mb" style="background:var(--m3d)">
+    <div class="mn">Member 03</div>
+    <h2>Shraddha Singh</h2>
+    <div class="mr">Frontend Developer &amp; Documentation Lead</div>
+    <div class="mp">Project Contribution: 33.4% &nbsp;|&nbsp; Module: Dashboard + Docs + QA + Coordination</div>
+  </div>
+  <div class="mm" style="background:var(--m3l)">
+    <div class="md">
+      <div class="lbl" style="color:var(--m3d)">Domain Focus</div>
+      <p>Frontend Development, UI/UX Design, Data Visualization, GIS Mapping, Technical Documentation, QA Testing, Project Coordination</p>
+    </div>
+    <div class="ms">
+      <span class="st" style="background:var(--m3m)">React.js</span>
+      <span class="st" style="background:var(--m3m)">D3.js/Recharts</span>
+      <span class="st" style="background:var(--m3m)">Leaflet/Mapbox</span>
+      <span class="st" style="background:var(--m3m)">Figma</span>
+      <span class="st" style="background:var(--m3m)">Cypress/Jest</span>
+      <span class="st" style="background:var(--m3m)">GIS Mapping</span>
+      <span class="st" style="background:var(--m3m)">Tech Writing</span>
+      <span class="st" style="background:var(--m3m)">TypeScript</span>
+    </div>
+  </div>
+  <div class="mst" style="background:var(--m3m)">CORE RESPONSIBILITIES</div>
+  <table class="rt">
+    <tr><td style="color:var(--m3d)">Dashboard UI/UX Design</td><td>Design wireframes and high-fidelity Figma mockups for the cloud-based conservation dashboard. Multi-panel layout: real-time sensor heatmaps, site health score gauges, risk level indicators, alert timelines, historical trend charts, GIS site maps. Ensure WCAG 2.1 accessibility and full responsiveness for tablet and desktop.</td></tr>
+    <tr><td style="color:var(--m3d)">Frontend Development</td><td>Implement full dashboard frontend in React.js with TypeScript. Integrate with Bhoomika's REST API using Axios/React Query. Implement WebSocket connections for real-time sensor data updates without page refresh. Use Redux Toolkit for state management across all dashboard panels. Build reusable component library in Storybook.</td></tr>
+    <tr><td style="color:var(--m3d)">Data Visualization &amp; GIS</td><td>Build interactive charts using Recharts and D3.js: temperature trend lines, vibration spectra, humidity heatmaps, AI risk score time series, alert frequency histograms. Integrate Leaflet.js / Mapbox GL for geographic heritage site mapping with dynamic risk level colour overlays and multi-site clustering views.</td></tr>
+    <tr><td style="color:var(--m3d)">Site Health Index (SHI)</td><td>Develop the Site Health Index scoring system — a composite metric combining environmental sensor data, structural readings, and AI risk scores into a single 0–100% health percentage per site. Visualize SHI trends over time. Build cross-site comparison panels enabling conservation authorities to prioritize intervention locations.</td></tr>
+    <tr><td style="color:var(--m3d)">QA Testing</td><td>Write end-to-end test suites using Cypress for all dashboard user workflows: login, alert management, site health views, report downloads. Perform Jest unit testing for React components. Cross-browser testing across Chrome, Firefox, Safari, and Edge. Conduct full system integration testing coordinating with Anishka and Bhoomika.</td></tr>
+    <tr><td style="color:var(--m3d)">Technical Documentation</td><td>Author complete system documentation: System Architecture Document, API Usage Guide, IoT Setup Manual, and User Manual for conservation authorities. Create UML diagrams — class, sequence, and deployment diagrams. Write the Cultural Preservation Strategy Document, a key required project deliverable for the expected outcomes list.</td></tr>
+    <tr><td style="color:var(--m3d)">Project Coordination</td><td>Maintain the Gantt chart and track milestone completion across all three members. Facilitate weekly stand-up meetings. Prepare final project presentation slides and demo video. Compile the Risk Prediction Performance Report using Anishka's model results. Ensure all deliverables are complete and submission-ready by Week 16.</td></tr>
+  </table>
+  <div class="bs" style="background:var(--m3l)">
+    <div class="bc" style="border-right:1px solid var(--border)">
+      <h4 style="color:var(--m3d)">Key Deliverables</h4>
+      <ul>
+        <li>Figma wireframes &amp; UI/UX prototypes</li>
+        <li>Functional conservation dashboard (React.js)</li>
+        <li>GIS site maps with risk overlays</li>
+        <li>Site Health Index (SHI) analytics module</li>
+        <li>Cypress E2E test suite + Jest unit tests</li>
+        <li>System Architecture Document (UML)</li>
+        <li>Cultural Preservation Strategy Document</li>
+        <li>User Manual for conservation authorities</li>
+        <li>Final presentation deck &amp; demo video</li>
+      </ul>
+    </div>
+    <div class="bc">
+      <h4 style="color:var(--m3d)">Technologies &amp; Tools</h4>
+      <ul>
+        <li class="ar">React.js + TypeScript — frontend framework</li>
+        <li class="ar">Recharts / D3.js — data visualization</li>
+        <li class="ar">Leaflet.js / Mapbox GL — GIS mapping</li>
+        <li class="ar">Tailwind CSS — UI styling</li>
+        <li class="ar">Redux Toolkit — state management</li>
+        <li class="ar">WebSocket — real-time data streaming</li>
+        <li class="ar">Cypress — E2E testing automation</li>
+        <li class="ar">Figma — UI/UX design tool</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tls" style="grid-template-columns:repeat(5,1fr)">
+    <div class="tc_" style="background:var(--m3d)"><div class="tp_">Phase 1: UI/UX Design</div><div class="td_">Weeks 1–3</div></div>
+    <div class="tc_" style="background:var(--steel)"><div class="tp_">Phase 2: Core Dashboard</div><div class="td_">Weeks 4–7</div></div>
+    <div class="tc_" style="background:var(--m3d)"><div class="tp_">Phase 3: Charts &amp; GIS</div><div class="td_">Weeks 8–10</div></div>
+    <div class="tc_" style="background:var(--steel)"><div class="tp_">Phase 4: Testing &amp; Docs</div><div class="td_">Weeks 11–14</div></div>
+    <div class="tc_" style="background:var(--m3d)"><div class="tp_">Phase 5: Final Polish</div><div class="td_">Weeks 15–16</div></div>
+  </div>
+</div>
+
+<!-- COLLABORATION -->
+<div class="sh page-break" style="background:linear-gradient(90deg,var(--navy),var(--steel))">
+  <h2>TEAM COLLABORATION MATRIX &amp; MILESTONE CALENDAR</h2>
+  <p>Integration touchpoints and shared delivery schedule across all three modules</p>
+</div>
+
+<h3 style="margin:0 0 10px;color:var(--navy)">Integration Points</h3>
+<table class="dt">
+  <tr><th>Integration Point</th><th>Anishka Jain</th><th>Bhoomika Agarwal</th><th>Shraddha Singh</th></tr>
+  <tr><td><strong>IoT Data to Cloud</strong></td><td>Provides MQTT data stream</td><td>Configures IoT Core intake</td><td>Monitors live in dashboard</td></tr>
+  <tr><td><strong>AI Predictions to API</strong></td><td>Exposes model as REST endpoint</td><td>Routes predictions to DB and alerts</td><td>Displays risk scores in UI</td></tr>
+  <tr><td><strong>Alert Trigger</strong></td><td>Sets risk thresholds in model</td><td>Sends via Kafka/SNS/Twilio</td><td>Shows alert timeline in UI</td></tr>
+  <tr><td><strong>System Testing</strong></td><td>Tests sensor + model accuracy</td><td>Tests API load and security</td><td>Tests full user workflows (E2E)</td></tr>
+  <tr><td><strong>Documentation</strong></td><td>IoT setup + AI technical specs</td><td>API guide + cloud architecture</td><td>User manual + strategy doc</td></tr>
+  <tr><td><strong>Final Demo</strong></td><td>Live sensor feed + model output</td><td>Cloud console + API demo</td><td>Full dashboard walkthrough</td></tr>
+</table>
+
+<h3 style="margin:18px 0 10px;color:var(--navy)">16-Week Project Milestone Calendar</h3>
+<table class="dt">
+  <tr><th>Milestone</th><th>Target Week</th><th>Owner</th></tr>
+  <tr><td>IoT nodes operational and sending live sensor data</td><td>Week 4</td><td style="color:var(--m1d);font-weight:600">Anishka</td></tr>
+  <tr><td>Cloud infrastructure fully deployed on AWS</td><td>Week 4</td><td style="color:var(--m2d);font-weight:600">Bhoomika</td></tr>
+  <tr><td>End-to-end data pipeline: sensor to database working</td><td>Week 7</td><td style="font-weight:600">Anishka + Bhoomika</td></tr>
+  <tr><td>AI deterioration model trained (target AUC &gt; 0.85)</td><td>Week 11</td><td style="color:var(--m1d);font-weight:600">Anishka</td></tr>
+  <tr><td>REST API complete with full Swagger documentation</td><td>Week 10</td><td style="color:var(--m2d);font-weight:600">Bhoomika</td></tr>
+  <tr><td>Multi-channel alert system live and tested</td><td>Week 11</td><td style="color:var(--m2d);font-weight:600">Bhoomika</td></tr>
+  <tr><td>Conservation Dashboard v1 launched with core panels</td><td>Week 11</td><td style="color:var(--m3d);font-weight:600">Shraddha</td></tr>
+  <tr><td>GIS site maps + Site Health Index analytics live</td><td>Week 13</td><td style="color:var(--m3d);font-weight:600">Shraddha</td></tr>
+  <tr><td>Full system integration testing complete</td><td>Week 14</td><td style="font-weight:600">All Three Members</td></tr>
+  <tr><td>All documentation complete and reviewed</td><td>Week 15</td><td style="color:var(--m3d);font-weight:600">Shraddha (lead)</td></tr>
+  <tr><td>Risk Prediction Performance Report submitted</td><td>Week 15</td><td style="font-weight:600">Anishka + Shraddha</td></tr>
+  <tr><td>Final demo recording and project submission</td><td>Week 16</td><td style="font-weight:600">All Three Members</td></tr>
+</table>
+
+<h3 style="margin:18px 0 10px;color:var(--navy)">Expected Outcomes vs Deliverables Mapping</h3>
+<table class="dt">
+  <tr><th>Required Expected Outcome</th><th>Deliverable</th><th>Lead</th><th>Support</th></tr>
+  <tr><td>Functional AI-powered heritage preservation system</td><td>Integrated system: IoT + AI + Cloud + Dashboard</td><td>All three</td><td>—</td></tr>
+  <tr><td>Conservation analytics dashboard</td><td>React.js dashboard: charts, GIS, SHI module</td><td style="color:var(--m3d);font-weight:600">Shraddha</td><td>Bhoomika (API)</td></tr>
+  <tr><td>Risk prediction performance report</td><td>Model eval: AUC, precision, recall, F1, confusion matrix</td><td style="color:var(--m1d);font-weight:600">Anishka</td><td>Shraddha (write-up)</td></tr>
+  <tr><td>Cultural preservation strategy document</td><td>Strategy doc with recommendations and site priorities</td><td style="color:var(--m3d);font-weight:600">Shraddha</td><td>Anishka (data)</td></tr>
+  <tr><td>Alert and reporting system</td><td>Multi-channel alert pipeline + automated PDF reports</td><td style="color:var(--m2d);font-weight:600">Bhoomika</td><td>Shraddha (UI alerts)</td></tr>
+  <tr><td>Secure and scalable architecture</td><td>AWS deploy: IAM, HTTPS, auto-scaling, audit logs</td><td style="color:var(--m2d);font-weight:600">Bhoomika</td><td>—</td></tr>
+</table>
+
+<div class="close">
+  <p><strong>All three members contribute equally and complementarily — no single module works without the others.</strong><br>
+  Anishka's IoT sensors and AI models generate the intelligence. Bhoomika's cloud backend stores, processes, and distributes it securely with real-time alerts. Shraddha's dashboard makes it visible and actionable for conservation authorities. Together they form a complete, end-to-end AI-driven heritage preservation platform.</p>
+</div>
+
+</div>
+<button class="pbtn no-print" onclick="window.print()">Save as PDF</button>
+</body>
+</html>
