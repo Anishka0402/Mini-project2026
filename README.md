@@ -1,273 +1,261 @@
-🏛️ AI-Driven Smart Heritage Site Preservation & Monitoring System
-Intelligent Cultural Heritage Monitoring Platform using AI and IoT
+# 🏛️ AI-Driven Smart Heritage Site Preservation & Monitoring System
+### *Intelligent Cultural Heritage Monitoring Platform using AI and IoT*
+
 ---
 
-📌 Project Overview
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red)
+![Machine Learning](https://img.shields.io/badge/AI-Machine%20Learning-purple)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-Heritage monuments are continuously affected by environmental conditions, pollution, climate change, and human activity. Traditional preservation methods rely heavily on manual inspections, which are time-consuming and often detect damage too late.
+---
 
-This project introduces a Smart Heritage Monitoring System that uses IoT-based environmental sensing, cloud data storage, and AI-driven risk prediction to monitor monument health in real time.
+# 📌 Project Overview
 
-The system collects environmental and structural data, analyzes it using machine learning models, and displays insights through an interactive monitoring dashboard. It also generates alerts when potential risks are detected.
+Heritage monuments are constantly affected by **environmental conditions, pollution, climate change, and human activities**. Traditional monitoring methods rely heavily on **manual inspections**, which are slow and often detect damage too late.
 
-The goal is to support predictive conservation and enable authorities to take preventive action before serious damage occurs.
+This project introduces a **Smart Heritage Monitoring System** that uses **IoT-based environmental sensing, machine learning models, and a monitoring dashboard** to track monument health in real time.
 
-🌍 Industry Relevance
+The system collects environmental data, analyzes it using AI models, and visualizes the results through a **real-time monitoring dashboard**. It also generates alerts when potential risks are detected.
+
+The goal is to help conservation authorities move from **reactive restoration to predictive preservation**.
+
+---
+
+# 🌍 Industry Relevance
 
 This system can support organizations such as:
 
-Archaeological Survey Departments
+- Archaeological Survey Departments  
+- Cultural Heritage Preservation Agencies  
+- UNESCO Heritage Conservation Programs  
+- Smart City Infrastructure Projects  
+- Cultural Heritage Research Institutions  
 
-Cultural Heritage Preservation Agencies
+---
 
-UNESCO Heritage Conservation Programs
+# 🎯 Project Objectives
 
-Government Smart City Initiatives
+- Monitor environmental conditions affecting heritage structures  
+- Predict deterioration risks using machine learning models  
+- Detect abnormal activities that may indicate vandalism  
+- Generate alerts for conservation authorities  
+- Provide an interactive monitoring dashboard  
+- Support data-driven heritage preservation planning  
 
-Research institutions studying monument preservation
+---
 
-🎯 Project Objectives
+# ⚙️ Key System Features
 
-• Monitor environmental conditions affecting heritage structures
-• Predict deterioration risks using machine learning models
-• Detect abnormal activity that could indicate vandalism
-• Generate alerts for conservation authorities
-• Provide an interactive dashboard for heritage monitoring
-• Support data-driven preservation planning
-
-⚙️ Key System Features
-📡 Environmental Monitoring (IoT Simulation)
+## 📡 Environmental Monitoring (IoT Simulation)
 
 Environmental sensors collect data about monument surroundings.
 
-Measured parameters include:
+Parameters monitored include:
 
-Temperature
+- Temperature  
+- Humidity  
+- Air Pollution  
+- Structural Vibration  
+- Crack Width *(simulated)*  
 
-Humidity
+Since real hardware deployment may not be available, **sensor data is simulated using Python scripts** representing IoT device behaviour.
 
-Air Pollution Level
+---
 
-Structural Vibration
+## 🧠 AI-Based Risk Prediction
 
-Crack Width (simulated)
-
-Since physical hardware deployment may not be available, sensor data is simulated using Python scripts, representing IoT device behavior.
-
-🧠 AI-Based Risk Prediction
-
-Machine learning models analyze environmental and structural conditions to estimate deterioration risk.
+Machine learning models analyze environmental and structural conditions to estimate deterioration risks.
 
 Models used:
 
-Random Forest → Predict deterioration risk level
-
-Isolation Forest → Detect abnormal activity patterns
+- **Random Forest** – Predict deterioration risk level  
+- **Isolation Forest** – Detect abnormal patterns  
 
 Example prediction output:
 
+```
 Risk Level: Medium
 Prediction Confidence: 0.87
-📊 Monitoring Dashboard
+```
 
-A real-time dashboard displays system analytics for conservation authorities.
+---
+
+## 📊 Monitoring Dashboard
+
+A real-time dashboard allows conservation authorities to monitor monument conditions.
 
 Dashboard capabilities:
 
-Live sensor readings
+- Live sensor data monitoring  
+- Environmental trend graphs  
+- Risk prediction indicators  
+- Site Health Index visualization  
+- Alert notifications  
 
-Environmental trends over time
+The dashboard is built using **Streamlit**.
 
-Risk prediction indicators
+---
 
-Site Health Index visualization
+## 🚨 Alert System
 
-Alert notifications
+The platform automatically generates alerts when risk thresholds are exceeded.
 
-The dashboard is built using Streamlit for quick and interactive visualization.
-
-🚨 Alert System
-
-The system automatically generates alerts when risk thresholds are exceeded.
-
-Example alerts:
-
-Alert Level	Meaning
-Low	Minor environmental variation
-Medium	Possible deterioration risk
-High	Structural anomaly detected
-Critical	Immediate intervention required
+| Alert Level | Meaning |
+|-------------|---------|
+| Low | Minor environmental change |
+| Medium | Possible deterioration risk |
+| High | Structural anomaly detected |
+| Critical | Immediate intervention required |
 
 Alerts appear on the dashboard and can optionally trigger email notifications.
 
-🧠 Site Health Index (SHI)
+---
 
-The Site Health Index (SHI) summarizes the overall health of a monument.
+# 🧠 Site Health Index (SHI)
 
+The system computes a **Site Health Index (SHI)** representing the overall health of a monument.
+
+```
 SHI = (Environmental Score × 0.3)
     + (Structural Score × 0.4)
     + (AI Risk Score × 0.3)
+```
 
-Example output:
+Example:
 
+```
 Site Health Index: 82%
 Status: Stable
+```
 
-This metric helps conservation teams compare health across multiple heritage sites.
+---
 
-🏗️ System Architecture
+# 🏗️ System Architecture
+
+```
 IoT Sensor Simulation
-       │
-       ▼
+        │
+        ▼
 FastAPI Backend (Data Ingestion API)
-       │
-       ▼
+        │
+        ▼
 SQLite Database (Sensor Data Storage)
-       │
-       ▼
+        │
+        ▼
 AI Risk Prediction Engine
 (Random Forest + Isolation Forest)
-       │
-       ▼
+        │
+        ▼
 Alert Detection Logic
-       │
-       ▼
+        │
+        ▼
 Streamlit Dashboard
 (Real-Time Monitoring & Visualization)
-👥 Team Members & Work Division
+```
 
-The project is developed by three members with equal contribution (~33% each).
+---
 
-Each member is responsible for a different layer of the system.
+# 👥 Team Members & Work Division
 
-👩‍💻 Anishka Jain
-IoT Simulation & AI Model Developer
+The project is developed by **three members with equal contribution (~33% each)**.
 
-Module: IoT Data Generation + Machine Learning
+---
 
-Responsibilities
+## 👩‍💻 Anishka Jain  
+**Role:** IoT Simulation & AI Model Developer  
 
-Design environmental sensor simulation
+Responsibilities:
 
-Generate synthetic sensor data for testing
+- Design sensor simulation  
+- Generate synthetic sensor data  
+- Build preprocessing pipeline  
+- Train machine learning models  
+- Implement anomaly detection  
+- Evaluate model performance  
 
-Build preprocessing pipeline for sensor data
+Deliverables:
 
-Train machine learning models for risk prediction
+- Sensor simulation scripts  
+- Trained AI models  
+- Model evaluation report  
 
-Implement anomaly detection model
+---
 
-Evaluate model performance (accuracy, precision, recall)
+## 👩‍💻 Bhoomika Agarwal  
+**Role:** Backend & System Developer  
 
-Provide AI prediction endpoint for backend integration
+Responsibilities:
 
-Deliverables
+- Design backend architecture  
+- Develop REST APIs using **FastAPI**  
+- Implement sensor data ingestion  
+- Manage **SQLite database**  
+- Integrate AI prediction model  
+- Implement alert detection logic  
 
-✔ Sensor simulation scripts
-✔ Data preprocessing pipeline
-✔ Trained AI models
-✔ Model evaluation report
+Deliverables:
 
-👩‍💻 Bhoomika Agarwal
-Backend & Cloud System Developer
+- Backend API  
+- Database schema  
+- Alert system implementation  
 
-Module: Backend APIs + Database + Alert System
+---
 
-Responsibilities
+## 👩‍💻 Shraddha Singh  
+**Role:** Dashboard Developer & Documentation Lead  
 
-Design system backend architecture
+Responsibilities:
 
-Build REST APIs using FastAPI
+- Design dashboard layout  
+- Develop dashboard using **Streamlit**  
+- Implement charts and visualization  
+- Display AI predictions and alerts  
+- Implement Site Health Index visualization  
+- Write system documentation  
 
-Implement sensor data ingestion endpoints
+Deliverables:
 
-Design and manage SQLite database
+- Interactive monitoring dashboard  
+- Visualization modules  
+- System documentation  
 
-Integrate AI prediction model with backend
+---
 
-Implement alert generation logic
+# 🛠️ Technology Stack
 
-Provide API endpoints for dashboard access
+### IoT Layer
+- Python Sensor Simulation
+- REST API communication
 
-Deliverables
+### AI / Machine Learning
+- Python
+- Pandas
+- Scikit-learn
+- Random Forest
+- Isolation Forest
 
-✔ Backend REST API
-✔ Database schema design
-✔ AI integration with backend
-✔ Alert detection system
+### Backend
+- FastAPI
+- Python
 
-👩‍💻 Shraddha Singh
-Dashboard Developer & Documentation Lead
+### Database
+- SQLite
 
-Module: Visualization Dashboard + Documentation
+### Dashboard
+- Streamlit
+- Plotly / Matplotlib
 
-Responsibilities
+### Development Tools
+- Git & GitHub
+- VS Code
 
-Design monitoring dashboard layout
+---
 
-Build dashboard using Streamlit
+# 📁 Project Structure
 
-Implement charts and visual analytics
-
-Display AI risk predictions and alerts
-
-Implement Site Health Index visualization
-
-Prepare system documentation and user manual
-
-Deliverables
-
-✔ Interactive monitoring dashboard
-✔ Data visualization components
-✔ System documentation
-
-🛠️ Technology Stack
-
-To ensure efficient development within the project timeline, the system uses a minimal yet powerful technology stack.
-
-IoT Layer
-
-Python Sensor Simulation
-
-REST API communication
-
-AI / Machine Learning
-
-Python
-
-Pandas
-
-Scikit-learn
-
-Random Forest
-
-Isolation Forest
-
-Backend
-
-FastAPI
-
-Python
-
-REST API architecture
-
-Database
-
-SQLite
-
-Dashboard
-
-Streamlit
-
-Plotly / Matplotlib for visualization
-
-Development Tools
-
-Git & GitHub
-
-VS Code
-
-📁 Project Structure
+```
 heritage-ai-system
 │
 ├── iot
@@ -288,34 +276,58 @@ heritage-ai-system
 │
 └── docs
     └── architecture.md
-🚀 Installation
-Clone Repository
+```
+
+---
+
+# 🚀 Installation
+
+### Clone Repository
+
+```bash
 git clone https://github.com/your-repo/heritage-ai-system.git
 cd heritage-ai-system
-Install Dependencies
+```
+
+### Install Dependencies
+
+```bash
 pip install -r requirements.txt
-Run Backend Server
+```
+
+### Run Backend
+
+```bash
 uvicorn backend.api:app --reload
-Run Dashboard
+```
+
+### Run Dashboard
+
+```bash
 streamlit run dashboard/app.py
-📊 Expected Outcomes
+```
 
-• Functional AI-powered heritage monitoring system
-• Real-time monitoring dashboard
-• Deterioration risk prediction model
-• Alert detection system
-• Heritage site health analytics
+---
 
-⭐ Future Enhancements
+# 📊 Expected Outcomes
 
-Computer vision based crack detection
+- Functional AI-powered heritage monitoring system  
+- Real-time monitoring dashboard  
+- Deterioration risk prediction model  
+- Automated alert system  
+- Heritage site health analytics  
 
-Drone-based monument inspection
+---
 
-Satellite environmental monitoring
+# ⭐ Future Enhancements
 
-Multi-site heritage monitoring platform
+- Computer vision-based crack detection  
+- Drone-based monument inspection  
+- Satellite environmental monitoring  
+- Multi-site heritage monitoring platform  
 
-📜 License
+---
 
-This project is released under the MIT License.
+# 📜 License
+
+This project is released under the **MIT License**.
