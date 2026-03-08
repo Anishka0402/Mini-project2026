@@ -1,5 +1,6 @@
 .venv/
 __pycache__/
 *.pyc
-data/heritage.db
-.env
+backend/data/
+data/
+*.db
