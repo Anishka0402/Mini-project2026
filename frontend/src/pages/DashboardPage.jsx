@@ -4,10 +4,9 @@ import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './DashboardPage.css';
 
-const MONUMENTS = ['Taj Mahal', 'Qutub Minar', 'Red Fort'];
-
 function DashboardPage() {
-  const [selectedMonument, setSelectedMonument] = useState('Taj Mahal');
+  const [selectedMonument, setSelectedMonument] = useState('');
+  const [monuments, setMonuments] = useState([]);
   const [sensorData, setSensorData] = useState(null);
   const [historyData, setHistoryData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,6 +22,14 @@ function DashboardPage() {
           acc[item.monument] = item;
           return acc;
         }, {});
+
+        const availableMonuments = Object.keys(dataByMonument);
+        setMonuments(availableMonuments);
+        setSelectedMonument((prev) => {
+          if (availableMonuments.length === 0) return '';
+          return availableMonuments.includes(prev) ? prev : availableMonuments[0];
+        });
+
         setSensorData(dataByMonument);
         setError(null);
       } catch (err) {
@@ -41,6 +48,11 @@ function DashboardPage() {
   // Fetch history data when monument changes
   useEffect(() => {
     const fetchHistoryData = async () => {
+      if (!selectedMonument) {
+        setHistoryData([]);
+        return;
+      }
+
       try {
         const response = await axios.get(`http://localhost:8000/readings/${encodeURIComponent(selectedMonument)}`);
         const formattedData = response.data.map((reading, index) => ({
@@ -119,8 +131,9 @@ function DashboardPage() {
             value={selectedMonument}
             onChange={(e) => setSelectedMonument(e.target.value)}
             className="monument-dropdown"
+            disabled={monuments.length === 0}
           >
-            {MONUMENTS.map((monument) => (
+            {monuments.map((monument) => (
               <option key={monument} value={monument}>
                 {monument}
               </option>
@@ -240,7 +253,7 @@ function DashboardPage() {
           </>
         ) : (
           <div className="no-data-state">
-            <p>No data available for {selectedMonument}</p>
+            <p>Waiting for sensor data...</p>
           </div>
         )}
       </main>

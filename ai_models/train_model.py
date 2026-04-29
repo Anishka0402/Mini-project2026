@@ -28,12 +28,12 @@ df = pd.DataFrame(data)
 # Create risk_level labels based on rules
 def assign_risk_level(row):
     # High risk (2)
-    if (row["temperature"] > 40 or row["air_pollution"] > 300 or 
-        row["vibration"] > 3.5 or row["crack_width"] > 2.5):
+    if (row["temperature"] > 42 or row["air_pollution"] > 350 or 
+        row["vibration"] > 4.0 or row["crack_width"] > 2.8):
         return 2
     # Medium risk (1)
-    elif (row["temperature"] > 30 or row["air_pollution"] > 200 or 
-          row["vibration"] > 2.0 or row["crack_width"] > 1.5):
+    elif (row["temperature"] > 33 or row["air_pollution"] > 250 or 
+          row["vibration"] > 2.5 or row["crack_width"] > 1.8):
         return 1
     # Low risk (0)
     else:

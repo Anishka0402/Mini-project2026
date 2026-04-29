@@ -46,8 +46,8 @@ def create_sensor_data(data: SensorDataRequest, db: Session = Depends(get_db)):
     anomaly = int(iso_model.predict(features)[0])
     
     # Calculate Site Health Index (SHI)
-    environmental_score = max(0, 100 - (data.air_pollution / 4) - abs(data.temperature - 25))
-    structural_score = max(0, 100 - (data.crack_width * 20) - (data.vibration * 10))
+    environmental_score = max(0, 100 - (data.air_pollution / 6) - abs(data.temperature - 25))
+    structural_score = max(0, 100 - (data.crack_width * 15) - (data.vibration * 8))
     ai_score = 100 - (risk_level * 33)
     shi = round((environmental_score * 0.3) + (structural_score * 0.4) + (ai_score * 0.3), 2)
     
