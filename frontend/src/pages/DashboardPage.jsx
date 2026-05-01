@@ -16,7 +16,7 @@ function DashboardPage() {
   useEffect(() => {
     const fetchLatestData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/latest');
+        const response = await axios.get('https://mini-project2026-1.onrender.com/latest');
         
         // Array ko object me convert karna
         const dataByMonument = response.data.reduce((acc, item) => {
@@ -53,7 +53,7 @@ function DashboardPage() {
     const fetchHistory = async () => {
       if (!selectedMonument) return;
       try {
-        const response = await axios.get(`http://localhost:8000/readings/${selectedMonument}`);
+        const response = await axios.get(`https://mini-project2026-1.onrender.com/readings/${encodeURIComponent(selectedMonument)}`);
         const formattedHistory = response.data.map(item => ({
           time: new Date(item.timestamp).toLocaleTimeString(),
           temperature: item.temperature,
