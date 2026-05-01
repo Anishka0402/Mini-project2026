@@ -3,7 +3,7 @@ import time
 import requests
 from datetime import datetime
 
-API_URL = "http://localhost:8000/sensor-data"
+API_URL = "https://mini-project2026-1.onrender.com/sensor-data"
 
 MONUMENTS = ["Taj Mahal", "Qutub Minar", "Red Fort"]
 
